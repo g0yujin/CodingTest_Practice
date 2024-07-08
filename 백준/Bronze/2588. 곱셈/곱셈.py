@@ -1,7 +1,4 @@
-a = int(input())
-b = input()
+A = int(input())
+B = input()
 
-print( a*int(b[2]) )
-print( a*int(b[1]) )
-print( a*int(b[0]) )
-print( a*int(b) )
+print(A*int(B[2]), A*int(B[1]), A*int(B[0]), A*int(B), sep="\n")
