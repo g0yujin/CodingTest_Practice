@@ -1,29 +1,17 @@
 import sys
 
 N = int(sys.stdin.readline())
-color = sys.stdin.readline()
+inputValue = sys.stdin.readline()
 
-cnt_B = color.count("B")
-cnt_R = color.count("R")
+def solution(N, inputValue):
 
-result_R = 1
-result_B = 1
+    colors = {"R": 0, "B": 0}
+    colors[inputValue[0]] = 1
 
-# 파란색을 먼저 칠해야될 떄
-for i in range(N):
-    if color[i] == "R" and color[i+1] == "B":
-        result_R += 1
-    if color[i] == "R" and i == N-1:
-        result_R += 1
+    for i in range(1, N):
+        if inputValue[i] != inputValue[i - 1]:
+            colors[inputValue[i]] += 1
 
+    return min(colors["R"], colors["B"]) + 1
 
-
-for i in range(N):
-    if color[i] == "B" and color[i+1] == "R":
-        result_B += 1
-    if color[i] == "B" and i == N-1:
-        result_B += 1
-
-
-
-print(min(result_B, result_R))
+print(solution(N, inputValue))
