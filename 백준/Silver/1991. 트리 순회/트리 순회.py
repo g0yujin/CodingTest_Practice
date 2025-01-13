@@ -17,7 +17,7 @@ def preorder(node):
     preorder(tree[node][1])
 
 
-# 중위 순회 함수 : 왼 > 루트 > 오
+# 중위 순회 : 왼 > 루트 > 오
 def inorder(node):
     if node == '.':
         return
@@ -26,14 +26,14 @@ def inorder(node):
     inorder(tree[node][1])
 
 
-# 후위 순회 함수 : 왼 > 오 > 루트
+# 후위순회 : 왼 > 오 > 루트
 def postorder(node):
     if node == '.':
         return
+
     postorder(tree[node][0])
     postorder(tree[node][1])
     print(node, end='')
-
 
 preorder('A')
 print()
