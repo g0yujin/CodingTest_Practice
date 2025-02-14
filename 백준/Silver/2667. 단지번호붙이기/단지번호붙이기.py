@@ -1,49 +1,40 @@
 import sys
-from collections import deque
+sys.setrecursionlimit(10**6)
 
-#    상  하  좌  우
-dx = [0, 0, 1, -1]
-dy = [1, -1, 0, 0]
-
-
-# BFS - 이미 지나온 곳은 0으로 바꾸기
-def bfs(house, a, b):
-    queue = deque()
-    queue.append((a, b))
-    house[a][b] = 0
-    count = 1
-
-    while queue:
-        x, y = queue.popleft()
-        for i in range(4):
-            next_x = x + dx[i]
-            next_y = y + dy[i]
-            if next_x < 0 or next_x >= N or next_y < 0 or next_y >= N:
-                continue
-            if house[next_x][next_y] == 1:
-                house[next_x][next_y] = 0
-                queue.append((next_x, next_y))
-                count += 1
-
-    return count
-
-
+# 1. 입력 및 초기화
 N = int(sys.stdin.readline())
 
-house = []
-complex = []
+# 2. 그래프 정보 입력
+graph = [list(map(int, sys.stdin.readline().strip())) for _ in range(N)]
+house = 1
+result = []
 
-for i in range(N):
-    house.append(list(map(int, sys.stdin.readline().rstrip())))
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+
+
+def dfs(x, y):
+    global house
+    graph[x][y] = 0  # 1을 0으로 바꿔서 방문 처리
+
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+
+        if 0 <= nx < N and 0 <= ny < N and graph[nx][ny] == 1:
+            house += 1
+            dfs(nx, ny)
+
 
 
 for i in range(N):
     for j in range(N):
-        if house[i][j] == 1:
-            complex.append(bfs(house, i, j))
+        if graph[i][j] == 1:
+            dfs(i, j)
+            result.append(house)
+            house = 1
 
-
-complex.sort()
-print(len(complex))
-for i in range(len(complex)):
-    print(complex[i])
+result.sort()
+print(len(result))
+for i in result:
+    print(i)
