@@ -1,42 +1,44 @@
 import sys
-from collections import deque
+sys.setrecursionlimit(10**6)
+
+dx = [1, -1, 0, 0]
+dy = [0, 0, 1, -1]
 
 
-# 방문한 곳은 0 으로 바꾸기
-def earthworm(graph, x, y):
-    queue = deque()
-    queue.append((x, y))   #초기 위치
 
-    while queue:
-        x, y = queue.popleft()
+def dfs(x, y):
+    graph[x][y] = 0
 
-        for dx, dy in (0, 1), (0, -1), (-1, 0), (1, 0):
-            nx, ny = x + dx, y + dy
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
 
-            if 0 <= nx < M and 0 <= ny < N and graph[nx][ny] == 1:
-                graph[nx][ny] = 0
-                queue.append((nx, ny))
+        if 0 <= nx < N and 0 <= ny < M and graph[nx][ny] == 1:
+            dfs(nx, ny)
 
+
+# 0.  입력 및 초기화
 T = int(sys.stdin.readline())
 
-
 for _ in range(T):
-    M, N, K = map(int, sys.stdin.readline().split()) # M: 가로, N:세로, K:배추 위치
-    ground = [[0] * N for _ in range(M)]
-    count = 0
+    # 가로, 세로, 배추 위치 개수
+    M, N, K = map(int, sys.stdin.readline().split())
 
-    for _ in range(K):
+    graph = [[0] * M for _ in range(N)]
+
+    #1. 그래프 정보 입력
+    for i in range(K):
         a, b = map(int, sys.stdin.readline().split())
-        ground[a][b] = 1
+        graph[b][a] = 1
 
-    for i in range(M):
-        for j in range(N):
-            if ground[i][j] == 1:
-                earthworm(ground, i, j)
-                count += 1
+    # 2. dfs 함수 작성
+    answer = 0
+    for i in range(N):
+        for j in range(M):
+            if graph[i][j] == 1:
+                dfs(i, j)
+                answer += 1
 
-    print(count)
 
-
-
+    print(answer)
 
