@@ -4,10 +4,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-class Solution {
-	
-	
-    public static void main(String[] args) throws Exception {
+class Solution
+{
+	public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         
         for(int test_case=1; test_case<=10; test_case++) {
@@ -20,16 +19,16 @@ class Solution {
     }
     
     public static boolean isValid(String brackets) {
-       ArrayDeque<Character> stack = new ArrayDeque<>();
-        
+    	
+    	// 총 괄호의 수가 홀수이면 false 
+    	if(brackets.length() % 2 == 1) { return false;}
+    	
+    	ArrayDeque<Character> stack = new ArrayDeque<>();
+    	
         for(int i=0; i<brackets.length(); i++) {
             char current = brackets.charAt(i);
 
-            // 총 괄호의 수가 홀수이면 false 
-            if(brackets.length() % 2 == 1) { return false;}
-           
-            
-            
+     
             if(current == '(' || current == '[' || current == '{' || current == '<') {
                 stack.push(current);
             } else {
