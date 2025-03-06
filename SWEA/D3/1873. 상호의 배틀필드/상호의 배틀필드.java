@@ -142,8 +142,6 @@ class Solution {
 					if(map[i][tank_j] == '#') {break;}
 					// 벽돌벽을 만나면 벽 파괴 후 평지로 만들기
 					else if(map[i][tank_j] == '*') { map[i][tank_j] = '.'; break;}
-					// 그 밖 - 평지 or 물이면 넘어가기
-					else {continue;}
 				}
 				break;
 				
@@ -154,8 +152,6 @@ class Solution {
 					if(map[i][tank_j] == '#') {break;}
 					// 벽돌벽을 만나면 벽 파괴 후 평지로 만들기
 					else if(map[i][tank_j] == '*') { map[i][tank_j] = '.'; break;}
-					// 그 밖 - 평지 or 물이면 넘어가기
-					else {continue;}
 				}
 				break;
 				
@@ -166,8 +162,6 @@ class Solution {
 					if(map[tank_i][i] == '#') {break;}
 					// 벽돌벽을 만나면 벽 파괴 후 평지로 만들기
 					else if(map[tank_i][i] == '*') { map[tank_i][i] = '.'; break;}
-					// 그 밖 - 평지 or 물이면 넘어가기
-					else {continue;}
 				}
 				break;
 				
@@ -178,8 +172,6 @@ class Solution {
 					if(map[tank_i][i] == '#') {break;}
 					// 벽돌벽을 만나면 벽 파괴 후 평지로 만들기
 					else if(map[tank_i][i] == '*') { map[tank_i][i] = '.'; break;}
-					// 그 밖 - 평지 or 물이면 넘어가기
-					else {continue;}
 				}
 				break;
 		}
