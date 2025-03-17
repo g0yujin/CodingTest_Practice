@@ -11,6 +11,7 @@ class Solution {
             else jjak += num_list[i];
         }
         
+        
         int hol_int = Integer.parseInt(hol);
         int jjak_int = Integer.parseInt(jjak);
         
