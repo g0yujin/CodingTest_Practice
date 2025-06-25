@@ -1,18 +1,21 @@
 import sys
 
-word = sys.stdin.readline().rstrip().upper()
+word = sys.stdin.readline().upper().strip()
 
-word_set = list(set(word))
-count_list = []
+dict = {}
+for i in word:
+    if i not in dict:
+        dict[i] = 1
+    else:
+        dict[i] += 1
 
-for x in word_set:
-    count = word.count(x)
-    count_list.append(count)
+max_value = []
 
-if count_list.count(max(count_list)) > 1:
-    print("?")
+for key, value in dict.items():
+    if max(dict.values()) == value:
+        max_value.append(key)
 
+if len(max_value) == 1:
+    print(*max_value)
 else:
-    print(word_set[(count_list.index(max(count_list)))])
-
-
+    print('?')
