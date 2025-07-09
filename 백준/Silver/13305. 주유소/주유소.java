@@ -5,8 +5,9 @@ import java.util.StringTokenizer;
 
 public class Main {
 	
-	static int N, cheap, need;
-	static int[] road, oil;
+	static int N;
+	static long cheap, need;
+	static long[] road, oil;
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -14,16 +15,16 @@ public class Main {
 	
 		N = Integer.parseInt(br.readLine());
 		
-		road = new int[N-1];
+		road = new long[N-1];
 		StringTokenizer st = new StringTokenizer(br.readLine());		
 		for(int i=0; i<N-1; i++) {
-			road[i] = Integer.parseInt(st.nextToken());
+			road[i] = Long.parseLong(st.nextToken());
 		}
 		
-		oil = new int[N];
+		oil = new long[N];
 		st = new StringTokenizer(br.readLine());
 		for(int i=0; i<N; i++) {
-			oil[i] = Integer.parseInt(st.nextToken());
+			oil[i] = Long.parseLong(st.nextToken());
 		}
 		
 		need = 0;
