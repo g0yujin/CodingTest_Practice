@@ -1,27 +1,29 @@
 import sys
-
+# N: 칭호의 개수, M: 캐릭터들의 개수
 N, M = map(int, sys.stdin.readline().split())
-rank = {}     # 칭호
-for i in range(N):
-    name, score = sys.stdin.readline().split()
-    rank[i] = int(score), name
+name = []
+power = []
 
-# 이진탐색 함수
-def binary_search(arr, target, start, end):
+for i in range(N):
+    n, p = sys.stdin.readline().strip().split()
+    name.append(n)
+    power.append(int(p))
+
+for i in range(M):
+    temp = int(sys.stdin.readline())
+
+    # 이분 탐색
+    left, right = 0, N-1
     result = 0
 
-    while start <= end:
-        mid = (start + end) // 2
-        if arr[mid][0] >= target:   # 범위에 맞는 경우
-            end = mid - 1
+    while left <= right:
+        mid = (left + right) // 2
+
+        if power[mid] >= temp:
             result = mid
+            right = mid-1
 
         else:
-             start = mid + 1
+            left = mid + 1
 
-    return arr[result][1]
-
-for j in range(M):
-    target = int(sys.stdin.readline().rstrip())
-    res = binary_search(rank, target, 0, N-1)
-    print(res)
+    print(name[result])
