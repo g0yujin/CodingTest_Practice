@@ -3,43 +3,46 @@ from collections import deque
 
 N, M, V = map(int, sys.stdin.readline().split())
 
-graph = [[] for _ in range(N+1)]
-
-for _ in range(M):
+graph = [[] for _ in range(N + 1)]
+for i in range(M):
     a, b = map(int, sys.stdin.readline().split())
+
     graph[a].append(b)
     graph[b].append(a)
 
-for i in range(1, N+1):
+# 작은 번호부터 방문
+for i in range(N+1):
     graph[i].sort()
 
-visited_dfs = [False] * (N+1)   # dfs 방문 기록
-visited_bfs = [False] * (N+1)   # bfs 방문 기록
+# dfs
+def dfs(v, visited):
+    visited.append(v)
+    for j in graph[v]:
+        if j not in visited:
+            dfs(j, visited)
 
-def dfs(graph, visited_dfs, V):
-    visited_dfs[V] = True
-    print(V, end=' ')
-
-    for i in graph[V]:
-        if not visited_dfs[i]:
-            dfs(graph, visited_dfs, i)
+    return visited
 
 
-def bfs(graph, visited_bfs, V):
-    queue = deque([V])
-    visited_bfs[V] = True
+# bfs
+def bfs(v):
+    visited = []
+    queue = deque([v])
+    visited.append(v)
 
     while queue:
-        V = queue.popleft()
-        print(V, end=' ')
+        current = queue.popleft()
 
-        for i in graph[V]:
-            if not visited_bfs[i]:
-                queue.append(i)
-                visited_bfs[i] = True
+        for j in graph[current]:
+            if j not in visited:
+                queue.append(j)
+                visited.append(j)
 
+    return visited
 
+visited = []
+visited_dfs = dfs(V, visited)
+visited_bfs = bfs(V)
 
-dfs(graph, visited_dfs, V)
-print()
-bfs(graph, visited_bfs, V)
+print(*visited_dfs)
+print(*visited_bfs)
