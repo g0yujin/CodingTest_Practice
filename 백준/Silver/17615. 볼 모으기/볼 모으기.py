@@ -6,21 +6,20 @@ ball = list(sys.stdin.readline().strip())
 # 색 별로 구분
 red = [0] * N
 blue = [0] * N
-red_count = 0
-blue_count = 0
+red_count = ball.count('R')
+blue_count = ball.count('B')
 
 for i in range(N):
     if ball[i] == 'R':
         red[i] = 1
-        red_count += 1
     else:
         blue[i] = 1
-        blue_count += 1
 
 
 
-answer = sys.maxsize
+answer = min(red_count, blue_count)
 
+start_idx = 0
 # 왼쪽에 몰기 - red
 for i in range(N):
     if red[i] == 0:
