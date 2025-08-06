@@ -1,30 +1,33 @@
-n = int(input())
+import sys, string
 
-exist = []
-for _ in range(n):
-    words = list(input().split())
+N = int(sys.stdin.readline())
 
-    flag = False 
-    for i in range(len(words)):
-        if words[i][0].upper() not in exist:
-            exist.append(words[i][0].upper())
-            flag = True 
-            words[i] = '[' + words[i][0] + ']' + words[i][1:]
-            print(' '.join(words)) 
-            break 
-    
-    if not flag:
-        for i in range(len(words)):
-            check = False 
-            for j in range(len(words[i])):
-                if words[i][j].upper() not in exist:
-                    exist.append(words[i][j].upper())
-                    flag = True 
-                    check = True 
-                    words[i] = words[i][:j] + '[' + words[i][j] + ']' + words[i][j+1:]
-                    print(' '.join(words))
-                    break 
-            if check: break 
-    
-    if not flag:
-        print(' '.join(words))
+used = set()
+
+for i in range(N):
+    words = sys.stdin.readline().strip().split()
+
+    found = False
+    # 1단계 - 각 단어 첫번째 글자 확인
+    for idx, word in enumerate(words):
+        if word[0].lower() not in used:
+            used.add(word[0].lower())
+            words[idx] = f'[{word[0]}]{word[1:]}'
+            found = True
+            break
+
+    # 2단계 - 처음부터 모든 글자 확인
+    if not found:
+        for word_idx, word in enumerate(words):
+            for char_idx, char in enumerate(word):
+                if char.isalpha() and char.lower() not in used:
+                    used.add(char.lower())
+                    # 해당 단어만 수정
+                    words[word_idx] = word[:char_idx] + f'[{char}]' + word[char_idx + 1:]
+                    found = True
+                    break
+            if found:  # 이중 루프 탈출
+                break
+
+        # 한 번만 출력
+    print(' '.join(words))
