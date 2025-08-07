@@ -1,22 +1,28 @@
-N = int(input())
-M = int(input())
+import sys
 
-graph = [[] for _ in range(N+1)]
+N = int(sys.stdin.readline())
+link = int(sys.stdin.readline())
 
-for i in range(M):
-    a, b = map(int, input().split())
-    graph[a].append(b)
-    graph[b].append(a)				# 양방향
-visited = [False] * (N+1)
-count = -1
+arr = [[] for _ in range(N+1)]
+answer = []
+for i in range(link):
+    a, b = map(int, sys.stdin.readline().split())
+    arr[a].append(b)
+    arr[b].append(a)
 
-def DFS(v):
-    visited[v] = True
-    global count
-    count += 1
-    for i in graph[v]:
-        if not visited[i]:
-            DFS(i)
 
-DFS(1)
-print(count)
+def dfs(v):
+    answer.append(v)
+    for j in arr[v]:
+        if j in answer:
+            continue
+        else:
+            if j != 1:
+                answer.append(j)
+                dfs(j)
+
+
+for i in arr[1]:
+    dfs(i)
+
+print(len(set(answer)))
