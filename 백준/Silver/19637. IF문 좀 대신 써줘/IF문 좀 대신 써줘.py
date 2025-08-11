@@ -1,4 +1,5 @@
 import sys
+
 # N: 칭호의 개수, M: 캐릭터들의 개수
 N, M = map(int, sys.stdin.readline().split())
 name = []
