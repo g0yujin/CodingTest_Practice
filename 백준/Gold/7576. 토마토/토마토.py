@@ -1,37 +1,52 @@
 import sys
 from collections import deque
-input = sys.stdin.readline
 
-m, n = map(int, input().split())
-arr = [list(map(int, input().split())) for _ in range(n)]
-q = deque()
+M, N = map(int,sys.stdin.readline().strip().split())
 
-for i in range(n):
-    for j in range(m):
-        if arr[i][j] == 1:
-            # 익은 토마토(1)의 좌표를 큐에 저장
-            q.append([i, j])
+graph = []
+for i in range(N):
+    graph.append(list(map(int, sys.stdin.readline().split())))
 
-dx, dy = [1, -1, 0, 0], [0, 0, 1, -1]
-while q:
-    x, y = q.popleft()
+
+tomato = []
+for i in range(N):
+    for j in range(M):
+        if graph[i][j] == 1:
+            tomato.append((i, j))
+
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+
+
+# 토마토가 있는 곳
+queue = deque()
+for r, c in tomato:
+    queue.append((r, c, 0))
+
+max_day = 0
+
+while queue:
+    x, y, day = queue.popleft()
+    max_day = max(max_day, day)
+
     for i in range(4):
-        # 익은 토마토 상하좌우 돌면서 일수 저장
         nx = x + dx[i]
         ny = y + dy[i]
 
-        if 0 <= nx < n and 0 <= ny < m:
-            if arr[nx][ny] == 0:
-                arr[nx][ny] = arr[x][y] + 1
-                q.append([nx, ny])
+        if 0 <= nx < N  and 0 <= ny < M and graph[nx][ny] == 0:
+            queue.append((nx, ny, day+1))
+            graph[nx][ny] = 1
 
-ans = 0
-for line in arr:
-    for tomato in line:
-        if tomato == 0:
-            # 안익은 토마토(0)이 있으면 바로 정지
-            print(-1)
-            exit()
-    ans = max(ans, max(line))
-# 1에서 시작했기 때문에 결과 값에서 1빼주기
-print(ans-1)
+complete = True
+
+for i in range(N):
+    for j in range(M):
+        if graph[i][j] == 0:
+            complete = False
+
+if complete:
+    print(max_day)
+else:
+    print(-1)
+
+
