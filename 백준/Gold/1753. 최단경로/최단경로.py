@@ -1,44 +1,40 @@
-import sys
-import heapq
+import sys, heapq
 
-# 노드의 개수가 최대 20000개 이므로 우선순위큐를 이용한 다익스트라 알고리즘 사용
+V, E = map(int, sys.stdin.readline().split())
+K = int(sys.stdin.readline())
 
-input = sys.stdin.readline
-INF = int(1e9)
-
-V, E = map(int, input().split())
-start = int(input())
-graph = [[] for i in range(V+1)]  # 각 노드에 연결되어 있는 노드에 대한 정보
-distance = [INF] * (V+1)          # 최단 거리 테이블
-
+graph = [ [] for _ in range(V+1)]
 for i in range(E):
-    a, b, c = map(int, input().split())
-    graph[a].append((b, c))
+    u, v, w = map(int, sys.stdin.readline().split())
+    graph[u].append((v,w))
 
+def dijkstra(graph, start):
 
-# 다익스트라 알고리즘
-def dijkstar(start):
-    q = []
-
-    heapq.heappush(q, (0, start))
+    distance = [float('inf')] * (V+1)
     distance[start] = 0
 
-    while q:    # 큐가 비어있지 않다면
-        dist, now = heapq.heappop(q)    # 큐에서 최단거리가 가장 짧은 노드 정보 꺼내기
-        if distance[now] < dist:
+    heap = [[0, start]]
+
+    while heap:
+        current_dist, current_node = heapq.heappop(heap)
+        # 이미 처리됐으면 건너뛰기
+        if current_dist > distance[current_node]:
             continue
 
-        for i in graph[now]:
-            cost = dist + i[1]
 
-            if cost < distance[i[0]]:
-                distance[i[0]] = cost
-                heapq.heappush(q, (cost, i[0]))
+        for next_node, weight in graph[current_node]:
+            new_dist = current_dist + weight
 
-dijkstar(start)
+            if new_dist < distance[next_node]:
+                distance[next_node] = new_dist
+                heapq.heappush(heap, (new_dist, next_node))
+
+    return distance
+
+distances = dijkstra(graph, K)
 
 for i in range(1, V+1):
-    if distance[i] == INF:
-        print("INF")
+    if distances[i] == float('inf'):
+        print('INF')
     else:
-        print(distance[i])
+        print(distances[i])
