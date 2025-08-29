@@ -2,17 +2,14 @@ import sys
 
 T = int(sys.stdin.readline())
 
-num = 0
-for i in range(T):
-    a, b = map(int, sys.stdin.readline().split())
+for testcase in range(T):
+    a, b = map(int,sys.stdin.readline().split())
     a = a % 10
 
     if a == 0:
         print(10)
-
     elif a == 1 or a == 5 or a == 6:
         print(a)
-
     elif a == 4 or a == 9:
         b = b % 2
         if b == 1:
