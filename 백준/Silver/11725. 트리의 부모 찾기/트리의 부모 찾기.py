@@ -1,26 +1,30 @@
 import sys
-sys.setrecursionlimit(10**6)  # 재귀 깊이 제한을 100만으로 늘림
+from collections import deque
 
 N = int(sys.stdin.readline())
 
-graph = [[] for _ in range(N+1)]   # 연결 정보를 저장할 linked list 배열
-
+graph = [[] for _ in range(N+1)]
 for i in range(N-1):
-    a, b = map(int, sys.stdin.readline().split())
-    graph[a].append(b)
-    graph[b].append(a)
+    A, B = map(int, sys.stdin.readline().split())
+    graph[A].append(B)
+    graph[B].append(A)
 
-
-# 부모 - 자식 관계 알아내기 - DFS
 parent = [0] * (N+1)
+visited = [False] * (N+1)
 
-def dfs(v):
+queue = deque()
+queue.append(1)
+
+while queue:
+    v = queue.popleft()
+    visited[v] = True
+
     for i in graph[v]:
-        if parent[i] == 0:
+        if not visited[i]:
+            visited[i] = True
             parent[i] = v
-            dfs(i)
+            queue.append(i)
 
-dfs(1)
+for i in range(2, N+1):
+    print(parent[i])
 
-for j in range(2, N+1):
-    print(parent[j])
