@@ -1,6 +1,6 @@
-import sys
-
-N = int(sys.stdin.readline())
-num = list(map(int, sys.stdin.readline().rstrip()))
-
-print(sum(num))
+n = input()
+nums = input()
+total = 0
+for i in nums :
+    total += int(i)  # total= total+int(i)
+print(total)
