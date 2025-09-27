@@ -1,18 +1,21 @@
-import sys
+n = int(input())
+map_array = [[0]*100 for _ in range(100)] # 100x100 도화지 만들기
 
-N = int(sys.stdin.readline())
-arr = [[0] * 100 for _ in range(100)]
-
-for i in range(N):
-    x, y = map(int, sys.stdin.readline().split())
-
-    for j in range(y-1, y+9):
-        for k in range(x-1, x+9):
-            if arr[k][j] == 0:
-                arr[k][j] = 1
+for _ in range(n):
+    x, y = map(int, input().split())
+    # x : x ~ x+10
+    # y : y ~ y+10
+    for i in range(y, y+10):
+        idx_y = i
+        # i,j에 해당하는 좌표에 점을 찍음
+        for j in range(x, x+10):
+            idx_x = j
+            if map_array[idx_y][idx_x] == 0:
+                map_array[idx_y][idx_x] = 1
             else:
                 pass
-
-
-count_ones = sum(row.count(1) for row in arr)
-print(count_ones)
+            
+sum_array = 0
+for i in range(100):
+    sum_array += sum(map_array[i])
+print(sum_array)
