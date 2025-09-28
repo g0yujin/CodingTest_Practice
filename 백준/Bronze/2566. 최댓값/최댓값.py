@@ -1,16 +1,13 @@
-import sys
+table = [list(map(int, input().split())) for _ in range(9)]
 
-mylist = []
-index = []
-for i in range(9):
-    mylist.append(list(map(int, sys.stdin.readline().split())))
+max_num = 0
+max_row, max_col = 0, 0
+for row in range(9):
+    for col in range(9):
+        if max_num <= table[row][col]:
+            max_row = row + 1
+            max_col = col + 1
+            max_num = table[row][col]
 
-max_value = max(map(max, mylist))
-
-for i in range(9):
-    for j in range(9):
-        if mylist[i][j] == max_value:
-            index.extend([i+1, j+1])
-
-print(max_value)
-print(*index)
+print(max_num)
+print(max_row, max_col)
