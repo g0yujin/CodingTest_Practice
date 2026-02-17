@@ -6,6 +6,6 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
 
-        System.out.println("Your score is " + N + " point");
+        System.out.println("Your score is " + N + " point.");
     }
 }
