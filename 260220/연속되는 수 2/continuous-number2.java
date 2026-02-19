@@ -1,7 +1,5 @@
-import java.util.Scanner;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
+
 
 
 
@@ -14,24 +12,20 @@ public class Main {
             arr[i] = sc.nextInt();
         }
         // Please write your code here.
+        int cnt = 1;
+        int maxCnt = 1;
         int current = arr[0];
-        ArrayList<Integer> cntList = new ArrayList<>(); 
-        int cnt = 0;
-        if(n == 1){
-            System.out.println(1);
-        }else{
-            for(int i=1; i<n; i++){
-            if(arr[i] == current){
+
+        for(int i=1; i<n; i++){
+            if(current == arr[i]){
                 cnt += 1;
-            }
-            else{
-                cntList.add(cnt);
+            }else{
+                maxCnt = Math.max(cnt, maxCnt);
                 cnt = 1;
                 current = arr[i];
             }
         }
-        System.out.println(Collections.max(cntList));
-        }
-        
+                maxCnt = Math.max(cnt, maxCnt);
+                System.out.println(maxCnt);
     }
 }
