@@ -17,8 +17,10 @@ public class Main {
         int current = arr[0];
         ArrayList<Integer> cntList = new ArrayList<>(); 
         int cnt = 0;
-
-        for(int i=1; i<n; i++){
+        if(n == 1){
+            System.out.println(1);
+        }else{
+            for(int i=1; i<n; i++){
             if(arr[i] == current){
                 cnt += 1;
             }
@@ -29,5 +31,7 @@ public class Main {
             }
         }
         System.out.println(Collections.max(cntList));
+        }
+        
     }
 }
